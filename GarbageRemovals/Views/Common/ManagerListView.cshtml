@@ -1,0 +1,10 @@
+﻿@model IEnumerable<GarbageRemovals.Models.Manager>
+
+@{
+    ViewData["Title"] = "ManagerListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @Html.Partial("ManagerList.cshtml",Model)
+</div>

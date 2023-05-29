@@ -1,0 +1,9 @@
+﻿@model IEnumerable<GarbageRemovals.Models.DumpStation>
+@{
+    ViewData["Title"] = "DumpStationListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row pl-5">
+    @Html.Partial("DumpStationList",Model)
+</div>
+

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<GarbageRemovals.Models.Request>
+<h3 class="pt-xl-5 pb-xl-3">List of Request</h3>
+<table class="table  shadow p-4">
+    <thead>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AsumedGrabange)
+        </th>
+        <th>
+            Area
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            User
+        </th>
+        <th>
+            Status
+        </th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AsumedGrabange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Area.Name)
+        </td>
+        <td>
+            <img src="~/RequestImages/@Html.DisplayFor(modelItem => item.ImagePath)" height="50" width="50"/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName)
+        </td>
+        <td>
+            @if (item.Status == true)
+            {
+                <div class="badge badge-success">Done!</div>
+            }
+            else
+            {
+                <div class="badge badge-danger">Pending</div>
+            }
+        </td>
+        <td>
+            <a asp-action="PickRequest" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<GarbageRemovals.Models.Area>
+@{
+    ViewData["Title"] = "AreaListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @Html.Partial("AreaList",Model);
+</div>
+

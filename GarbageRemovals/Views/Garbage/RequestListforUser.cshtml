@@ -1,0 +1,9 @@
+﻿@model IEnumerable<GarbageRemovals.Models.Request>
+@{
+    ViewData["Title"] = "RequestListforUser";
+}
+
+<div class="row">
+    @Html.Partial("RequestList.cshtml", Model)
+</div>
+

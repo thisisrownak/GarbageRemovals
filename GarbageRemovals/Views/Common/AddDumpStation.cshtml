@@ -1,0 +1,48 @@
+﻿@model GarbageRemovals.ViewModels.DumpStationVM
+
+@{
+    ViewData["Title"] = "AddDumpStation";
+}
+
+<h1>Add Dump Station</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddDumpStation" class="card shadow p-4">
+            <input asp-for="DumpStation.Id" type="hidden"/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DumpStation.Name" class="control-label"></label>
+                <input asp-for="DumpStation.Name" class="form-control"/>
+                <span asp-validation-for="DumpStation.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DumpStation.Phone" class="control-label"></label>
+                <input asp-for="DumpStation.Phone" class="form-control"/>
+                <span asp-validation-for="DumpStation.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DumpStation.AreaId" class="control-label"></label>
+                <select asp-for="DumpStation.AreaId" class="form-control" asp-items="Model.AreDropDowns"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    @Html.Partial("DumpStationList.cshtml",Model.DumpStationList)
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    window.onload = function () {
+        var cookie = getCookie('manager');
+        if (cookie == null) {
+            window.location.href='/user/managerlogin';
+        }
+    }
+</script>

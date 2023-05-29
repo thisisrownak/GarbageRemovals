@@ -1,0 +1,87 @@
+﻿@model GarbageRemovals.ViewModels.PickRequestVM
+
+@{
+    ViewData["Title"] = "PickRequest";
+}
+
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-sm-10 col-lg-6">
+            <h3>Pick Request</h3>
+            <form asp-action="PickRequest" class="card shadow p-4" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Request.Id" type="hidden" />
+                <input asp-for="Request.ImagePath" type="hidden" on="loadIamge()" />
+                <div class="form-group">
+                    <label asp-for="Request.Title" class="control-label"></label>
+                    <input asp-for="Request.Title" class="form-control" />
+                    <span asp-validation-for="Request.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Request.AsumedGrabange" class="control-label"></label>
+                    <textarea asp-for="Request.AsumedGrabange" class="form-control"></textarea>
+                    <span asp-validation-for="Request.AsumedGrabange" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Request.AreaId" class="control-label"></label>
+                    <select asp-for="Request.AreaId" class="form-control" asp-items="Model.AreaListDropDown">
+                        <option>Select Area</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Request.Image" class="control-label"></label>
+                    <input asp-for="Request.Image" class="form-control-file" onchange="readURL(this);" />
+                    <img id="blah" src="~/Image/plain-gray-background.jpg" class="pt-2" alt="your image" height="150" width="300" />
+                    <span asp-validation-for="Request.Image" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Send Request" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+<div class="row">
+    @Html.Partial("RequestList.cshtml",Model.RequestList)
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    $(document).ready(function () {
+        var cookie = getCookie('user');
+        if (cookie == null) {
+            window.location.href = '/user/login';
+        }
+        var value = $('#Request_ImagePath').val();
+        if (value != "") {
+            loadIamge(value);
+        }
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function loadIamge(value)
+    {
+        debugger 
+        var reader = new FileReader();
+        var imagePath = "/RequestImages/" + value;
+        $('#blah').attr('src', imagePath )
+            .width(300)
+            .height(150);
+    }
+</script>
